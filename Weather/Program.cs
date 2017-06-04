@@ -9,7 +9,7 @@ namespace Weather
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Uruchamia główne okno programu
         /// </summary>
         [STAThread]
         static void Main()

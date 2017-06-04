@@ -6,6 +6,9 @@ using Model;
 
 namespace Server
 {
+    /// <summary>
+    /// Serwer
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
@@ -13,57 +16,58 @@ namespace Server
             StartListening();
         }
 
-
-        // Incoming data from the client.  
-        public static string data = null;
-
+        /// <summary>
+        /// Uchuchamia nasłuchiwanie
+        /// </summary>
         public static void StartListening()
         {
-            // Data buffer for incoming data.  
+            //Bufor na dane przychodzące
             byte[] bytes = new Byte[1024];
 
-            // Establish the local endpoint for the socket.  
-            // Dns.GetHostName returns the name of the   
-            // host running the application.  
+            //Pobieramy adres na którym działa aplikacja
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
+            //Endpoint na naszym adresie i porcie 11000
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
-            // Create a TCP/IP socket.  
-            Socket listener = new Socket(AddressFamily.InterNetwork,
-                SocketType.Stream, ProtocolType.Tcp);
+            //Buduje socket 
+            Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            // Bind the socket to the local endpoint and   
-            // listen for incoming connections.  
+            
             try
             {
+                //Podłączenie socketa do adresu
                 listener.Bind(localEndPoint);
+                //Przełączenie socket w tryb nasłuchiwania (liczba zapytań w kolejce)
                 listener.Listen(10);
-
-                // Start listening for connections.  
+                
                 while (true)
                 {
                     Console.WriteLine("Oczekuje na połączenie");
+                    //Uruchomienie socketa
                     Socket handler = listener.Accept();
-                    data = null;
- 
+
+                    //pobranie danych z żądania
+                    string data = null;
                     while (true)
                     {
                         bytes = new byte[1024];
+                        //pobiera dane do bufora po czym konwertuje na wyjściowy string aż do osiągnięcia komunikatu zakończenia - EOF
                         int bytesRec = handler.Receive(bytes);
                         data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
                         if (data.IndexOf("<EOF>") > -1)
                         {
                             break;
                         }
-                    }
-                    // Show the data on the console.  
+                    } 
+                    //nazwa miasta
                     Console.WriteLine("Miasto : {0}", data);
 
-                    // Echo the data back to the client.  
-                    byte[] msg = Encoding.UTF8.GetBytes(Helper.GetData(data));
+                    //dane do odpowiedzi
+                    byte[] msg = Encoding.UTF8.GetBytes(Helper.BuildData(data));
 
                     handler.Send(msg);
+                    //zamknięcie soketa
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
                 }

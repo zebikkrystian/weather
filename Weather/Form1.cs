@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Sockets;
 using Model;
 using System.Drawing;
 
@@ -12,12 +9,12 @@ namespace Weather
 {
     public partial class Form1 : Form
     {
-
+        /// <summary>
+        /// Konstruktor okna
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
-
-            
 
             comboBox1.Items.Add("Częstochowa");
             comboBox1.Items.Add("Warszawa");
@@ -27,6 +24,9 @@ namespace Weather
             GetWeather();
         }
 
+        /// <summary>
+        /// Pobiera pogodę
+        /// </summary>
         private void GetWeather()
         {
             var city = comboBox1.SelectedItem.ToString();
@@ -34,6 +34,10 @@ namespace Weather
             BindData(model);
         }
 
+        /// <summary>
+        /// Podpina dane do kontrolek
+        /// </summary>
+        /// <param name="model">Dane o pogodzie</param>
         private void BindData(WeatherModel model)
         {
             labelMiasto.Text = model.Miasto + ", woj: " + model.Wojewodztwo;
@@ -78,6 +82,11 @@ namespace Weather
             labelAktualizacja.Text = "Ostatnia aktualizacja: " + model.Aktualizacja.ToString("HH:mm:ss  dd.MM.yyyy");
         }
 
+        /// <summary>
+        /// Zwraca odpowiednią grafike.
+        /// </summary>
+        /// <param name="id">Id grafiki</param>
+        /// <returns>Grafika</returns>
         private Bitmap GetFoto(int id)
         {
             switch (id)
@@ -104,7 +113,11 @@ namespace Weather
         }
 
         
-
+        /// <summary>
+        /// Obsługa zdarzenia kliknięcia w przycisk wyszukiwania
+        /// </summary>
+        /// <param name="sender">Źródło zdarzenia</param>
+        /// <param name="e">Obiekt zdarzenia</param>
         private void pictureBoxFind_Click(object sender, EventArgs e)
         {
             GetWeather();

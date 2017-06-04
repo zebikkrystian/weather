@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Model danych pogody
+    /// </summary>
     public class WeatherModel
     {
         public string Miasto { get; set; }
@@ -17,10 +20,16 @@ namespace Model
         public string Wiatr { get; set; }
         public DateTime Aktualizacja { get; set; }
 
+        /// <summary>
+        /// Informacja o pogodzie na kolejne dni
+        /// </summary>
         public List<WeatherNextDayModel> Dni { get; set; }
 
     }
 
+    /// <summary>
+    /// Model danych pogody na kolejne dni
+    /// </summary>
     public class WeatherNextDayModel
     {
         public int Id { get; set; }

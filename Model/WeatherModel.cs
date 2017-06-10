@@ -9,6 +9,7 @@ namespace Model
     /// </summary>
     public class WeatherModel
     {
+        public int Id { get; set; }
         public string Miasto { get; set; }
         public string Kraj { get; set; }
         public string Wojewodztwo { get; set; }

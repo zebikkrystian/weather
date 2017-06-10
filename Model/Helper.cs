@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -93,6 +94,7 @@ namespace Model
                     Dzien = DateTime.Now.AddDays(3).ToString("dddd")
                 }
             };
+            
             var json = Serialize(m);
             return json;
         }
@@ -117,6 +119,19 @@ namespace Model
         public static T Deserialize<T>(string json)
         {
             return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        /// <summary>
+        /// Deserializuje json na obiekt
+        /// </summary>
+        /// <typeparam name="T">Oczekiwany typ</typeparam>
+        /// <param name="json">Json do konwersji</param>
+        /// <returns>Obiekt</returns>
+        public static WeatherModel DeserializeResponse(string response)
+        {
+            JObject jObject = JObject.Parse(response);
+            var list = jObject["list"];
+            return new WeatherModel();
         }
     }
 }

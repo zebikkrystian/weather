@@ -3,6 +3,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using Model;
+using Db;
 
 namespace Server
 {
@@ -59,12 +60,14 @@ namespace Server
                         {
                             break;
                         }
-                    } 
+                    }
+
+                    data = data.Replace("<EOF>", "");
                     //nazwa miasta
                     Console.WriteLine("Miasto : {0}", data);
 
                     //dane do odpowiedzi
-                    byte[] msg = Encoding.UTF8.GetBytes(Helper.BuildData(data));
+                    byte[] msg = Encoding.UTF8.GetBytes(Query.GetWeather(data));
 
                     handler.Send(msg);
                     //zamknięcie soketa

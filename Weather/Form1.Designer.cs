@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.labelMiasto = new System.Windows.Forms.Label();
@@ -60,11 +61,17 @@
             this.pictureBoxD2Foto = new System.Windows.Forms.PictureBox();
             this.pictureBoxD1Foto = new System.Windows.Forms.PictureBox();
             this.pictureBoxFoto = new System.Windows.Forms.PictureBox();
+            this.databaseDataSet = new Weather.DatabaseDataSet();
+            this.pogodaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pogodaTableAdapter = new Weather.DatabaseDataSetTableAdapters.PogodaTableAdapter();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxD3Foto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxD2Foto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxD1Foto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pogodaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -72,7 +79,6 @@
             this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.comboBox1.DisplayMember = "Częstochowa";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBox1.FormattingEnabled = true;
@@ -80,7 +86,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(323, 37);
             this.comboBox1.TabIndex = 0;
-            this.comboBox1.ValueMember = "Częstochowa";
             // 
             // labelMiasto
             // 
@@ -443,6 +448,30 @@
             this.pictureBoxFoto.TabIndex = 14;
             this.pictureBoxFoto.TabStop = false;
             // 
+            // databaseDataSet
+            // 
+            this.databaseDataSet.DataSetName = "DatabaseDataSet";
+            this.databaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // pogodaBindingSource
+            // 
+            this.pogodaBindingSource.DataMember = "Pogoda";
+            this.pogodaBindingSource.DataSource = this.databaseDataSet;
+            // 
+            // pogodaTableAdapter
+            // 
+            this.pogodaTableAdapter.ClearBeforeFill = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(505, 486);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 51;
+            this.button1.Text = "Pokaż dane";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,6 +479,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(982, 574);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBoxFind);
             this.Controls.Add(this.labelD3Cisnienie);
             this.Controls.Add(this.labelD3Temperatura);
@@ -489,6 +519,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxD2Foto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxD1Foto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pogodaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -527,6 +559,10 @@
         private System.Windows.Forms.Label labelD3Temperatura;
         private System.Windows.Forms.Label labelD3Cisnienie;
         private System.Windows.Forms.PictureBox pictureBoxFind;
+        private DatabaseDataSet databaseDataSet;
+        private System.Windows.Forms.BindingSource pogodaBindingSource;
+        private DatabaseDataSetTableAdapters.PogodaTableAdapter pogodaTableAdapter;
+        private System.Windows.Forms.Button button1;
     }
 }
 

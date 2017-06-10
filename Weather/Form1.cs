@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Model;
 using System.Drawing;
+using Db;
 
 namespace Weather
 {
@@ -15,13 +16,20 @@ namespace Weather
         public Form1()
         {
             InitializeComponent();
-
-            comboBox1.Items.Add("Częstochowa");
-            comboBox1.Items.Add("Warszawa");
-            comboBox1.Items.Add("Gdańsk");
-            comboBox1.SelectedIndex = 0;
-
+            SetCombobox();
             GetWeather();
+        }
+
+        private void SetCombobox()
+        {
+            int currentIndex = comboBox1.SelectedIndex;
+            var cities = Query.GetCities();
+            comboBox1.Items.Clear();
+            foreach(var city in cities)
+            {
+                comboBox1.Items.Add(city);
+            }
+            comboBox1.SelectedIndex = currentIndex < 0 ? 0 : currentIndex;
         }
 
         /// <summary>
@@ -29,7 +37,12 @@ namespace Weather
         /// </summary>
         private void GetWeather()
         {
-            var city = comboBox1.SelectedItem.ToString();
+            string city = "";
+            if (comboBox1.SelectedItem != null)
+            {
+                city = comboBox1.SelectedItem.ToString();
+            }
+
             var model = ClientSocket.StartClient(city);
             BindData(model);
         }
@@ -112,7 +125,7 @@ namespace Weather
             return null;
         }
 
-        
+
         /// <summary>
         /// Obsługa zdarzenia kliknięcia w przycisk wyszukiwania
         /// </summary>
@@ -121,6 +134,14 @@ namespace Weather
         private void pictureBoxFind_Click(object sender, EventArgs e)
         {
             GetWeather();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var grid = new FormGrid();
+            grid.ShowDialog(this);
+            
+            SetCombobox();
         }
     }
 }

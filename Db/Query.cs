@@ -57,5 +57,26 @@ namespace Db
             var json = Helper.Serialize(model);
             return json;
         }
+
+        public static List<string> GetCities()
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Db.Properties.Settings.DatabaseConnectionString"].ConnectionString;
+
+            connection.Open();
+            string query = string.Format("Select Miasto from dbo.Pogoda");
+            SqlCommand cmd = new SqlCommand(query, connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            var model = new List<string>();
+            while (reader.Read())
+            {
+                model.Add(reader[0].ToString());
+            }
+            reader.Close();
+            
+            connection.Close();
+            return model;
+        }
     }
 }

@@ -19,9 +19,7 @@ namespace Weather
 
         private void FormGrid_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'databaseDataSet.PogodaDni' table. You can move, or remove it, as needed.
             this.pogodaDniTableAdapter.Fill(this.databaseDataSet.PogodaDni);
-            // TODO: This line of code loads data into the 'databaseDataSet.Pogoda' table. You can move, or remove it, as needed.
             this.pogodaTableAdapter.Fill(this.databaseDataSet.Pogoda);
 
         }

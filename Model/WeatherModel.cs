@@ -13,12 +13,12 @@ namespace Model
         public string Miasto { get; set; }
         public string Kraj { get; set; }
         public string Wojewodztwo { get; set; }
-        public string Temperatura { get; set; }
+        public int Temperatura { get; set; }
         public int Foto { get; set; }
         public string Opis { get; set; }
-        public string Opady { get; set; }
-        public string Cisnienie { get; set; }
-        public string Wiatr { get; set; }
+        public int Opady { get; set; }
+        public int Cisnienie { get; set; }
+        public int Wiatr { get; set; }
         public DateTime Aktualizacja { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Model
         public int Foto { get; set; }
         public string Dzien { get; set; }
         public string Opis { get; set; }
-        public string Temperatura { get; set; }
-        public string Cisnienie { get; set; }
+        public int Temperatura { get; set; }
+        public int Cisnienie { get; set; }
     }
 }

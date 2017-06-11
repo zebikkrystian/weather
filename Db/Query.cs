@@ -26,12 +26,12 @@ namespace Db
                 model.Miasto = reader[0].ToString();
                 model.Kraj = reader[1].ToString();
                 model.Wojewodztwo = reader[2].ToString();
-                model.Temperatura = reader[3].ToString();
+                model.Temperatura = int.Parse(reader[3].ToString());
                 model.Foto = int.Parse(reader[4].ToString());
                 model.Opis = reader[5].ToString();
-                model.Opady = reader[6].ToString();
-                model.Cisnienie = reader[7].ToString();
-                model.Wiatr = reader[8].ToString();
+                model.Opady = int.Parse(reader[6].ToString());
+                model.Cisnienie = int.Parse(reader[7].ToString());
+                model.Wiatr = int.Parse(reader[8].ToString());
                 model.Id = int.Parse(reader[9].ToString());
             }
             reader.Close();
@@ -45,8 +45,8 @@ namespace Db
                 item.Dzien = reader[0].ToString();
                 item.Foto = int.Parse(reader[1].ToString());
                 item.Opis = reader[2].ToString();
-                item.Temperatura = reader[3].ToString();
-                item.Cisnienie = reader[4].ToString();
+                item.Temperatura = int.Parse(reader[3].ToString());
+                item.Cisnienie = int.Parse(reader[4].ToString());
                 model.Dni.Add(item);
             }
             reader.Close();

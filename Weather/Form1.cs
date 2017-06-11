@@ -10,6 +10,8 @@ namespace Weather
 {
     public partial class Form1 : Form
     {
+        WeatherModel _model;
+
         /// <summary>
         /// Konstruktor okna
         /// </summary>
@@ -25,7 +27,7 @@ namespace Weather
             int currentIndex = comboBox1.SelectedIndex;
             var cities = Query.GetCities();
             comboBox1.Items.Clear();
-            foreach(var city in cities)
+            foreach (var city in cities)
             {
                 comboBox1.Items.Add(city);
             }
@@ -53,21 +55,22 @@ namespace Weather
         /// <param name="model">Dane o pogodzie</param>
         private void BindData(WeatherModel model)
         {
+            _model = model;
             labelMiasto.Text = model.Miasto + ", woj: " + model.Wojewodztwo;
             labelKraj.Text = model.Kraj;
-            labelTemperatura.Text = model.Temperatura;
+            labelTemperatura.Text = model.Temperatura + " °C";
             labelOpis.Text = model.Opis;
-            labelOpady.Text = model.Opady;
-            labelCisnienie.Text = model.Cisnienie;
-            labelWiatr.Text = model.Wiatr;
+            labelOpady.Text = model.Opady + " mm/m2";
+            labelCisnienie.Text = model.Cisnienie + " hPa";
+            labelWiatr.Text = model.Wiatr + " m/s";
             pictureBoxFoto.Image = (GetFoto(model.Foto));
 
             var d1 = model.Dni.ElementAtOrDefault(0);
             if (d1 != null)
             {
                 labelD1Opis.Text = d1.Opis;
-                labelD1Temperatura.Text = d1.Temperatura;
-                labelD1Cisnienie.Text = d1.Cisnienie;
+                labelD1Temperatura.Text = d1.Temperatura + " °C";
+                labelD1Cisnienie.Text = d1.Cisnienie + " hPa";
                 labelD1Dzien.Text = d1.Dzien;
                 pictureBoxD1Foto.Image = (GetFoto(d1.Foto));
             }
@@ -76,8 +79,8 @@ namespace Weather
             if (d2 != null)
             {
                 labelD2Opis.Text = d2.Opis;
-                labelD2Temperatura.Text = d2.Temperatura;
-                labelD2Cisnienie.Text = d2.Cisnienie;
+                labelD2Temperatura.Text = d2.Temperatura + " °C";
+                labelD2Cisnienie.Text = d2.Cisnienie + " hPa";
                 labelD2Dzien.Text = d2.Dzien;
                 pictureBoxD2Foto.Image = (GetFoto(d2.Foto));
             }
@@ -86,8 +89,8 @@ namespace Weather
             if (d3 != null)
             {
                 labelD3Opis.Text = d3.Opis;
-                labelD3Temperatura.Text = d3.Temperatura;
-                labelD3Cisnienie.Text = d3.Cisnienie;
+                labelD3Temperatura.Text = d3.Temperatura + " °C";
+                labelD3Cisnienie.Text = d3.Cisnienie + " hPa";
                 labelD3Dzien.Text = d3.Dzien;
                 pictureBoxD3Foto.Image = (GetFoto(d3.Foto));
             }
@@ -140,8 +143,19 @@ namespace Weather
         {
             var grid = new FormGrid();
             grid.ShowDialog(this);
-            
+
             SetCombobox();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var form = new FormChart();
+            foreach (var day in _model.Dni)
+            {
+                form.Chart.Series["Temperatura"].Points.AddXY(day.Dzien, day.Temperatura);
+            }
+            form.ShowDialog();
+
         }
     }
 }

@@ -152,7 +152,8 @@ namespace Weather
             var form = new FormChart();
             foreach (var day in _model.Dni)
             {
-                form.Chart.Series["Temperatura"].Points.AddXY(day.Dzien, day.Temperatura);
+                form.ChartTemperatura.Series["Temperatura"].Points.AddXY(day.Dzien, day.Temperatura);
+                form.ChartCisnienie.Series["Cisnienie"].Points.AddXY(day.Dzien, day.Cisnienie);
             }
             form.ShowDialog();
 
